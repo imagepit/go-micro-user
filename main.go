@@ -13,22 +13,11 @@ import (
 	"net/http"
 	_ "github.com/qor/qor"
 	"github.com/qor/admin"
-	"github.com/swaggo/gin-swagger"
-    "github.com/swaggo/gin-swagger/swaggerFiles"
-    _ "github.com/swaggo/gin-swagger/example/docs"
 )
 
-// @Description get struct array by ID
-// @ID get-struct-array-by-string
-// @Accept  json
-// @Produce  json
-// @Param   some_id     path    string     true        "Some ID"
-// @Param   offset     query    int     true        "Offset"
-// @Param   limit      query    int     true        "Offset"
-// @Success 200 {string} string	"ok"
-// @Failure 400 {object} web.APIError "We need ID!!"
-// @Failure 404 {object} web.APIError "Can not find ID"
-// @Router /testapi/get-struct-array-by-string/{some_id} [get]
+//------------------------------
+// EntryPoint
+//------------------------------
 func main() {
 	// DB接続
 	db = gormConnect()
@@ -104,7 +93,6 @@ func launchRestApi(){
 	r.POST("/login", LoginHandler) // ログイン用APIエンドポイントハンドラー
 	r.POST("/user", CreateUserHandler) // ユーザ登録用APIエンドポイントハンドラー
 	r.GET("/me", CurrentUserHandler) // 自ユーザ情報取得エンドポイントハンドラー
-	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
     r.Run(":3000")
     fmt.Println("顧客サービス起動完了")
 }
@@ -121,17 +109,7 @@ type ErrorResponse struct{
 }
 
 
-// @Description get struct array by ID
-// @ID get-struct-array-by-string
-// @Accept  json
-// @Produce  json
-// @Param   some_id     path    string     true        "Some ID"
-// @Param   offset     query    int     true        "Offset"
-// @Param   limit      query    int     true        "Offset"
-// @Success 200 {string} string	"ok"
-// @Failure 400 {object} web.APIError "We need ID!!"
-// @Failure 404 {object} web.APIError "Can not find ID"
-// @Router /testapi/get-struct-array-by-string/{some_id} [get]
+// ログイン
 func LoginHandler(c *gin.Context) {
     // リクエストパラメータ取得
     email := c.PostForm("email") 
